@@ -20,18 +20,9 @@
               />
             </a>
           </li>
-          <li><a id="currentLink" href="{%url 'predictions'%}">Predictions</a></li>
-          <li><a href="{%url 'stats'%}">Stats</a></li>
+          <li><a href="{%url 'predictions'%}">Predictions</a></li>
+          <li><a id="currentLink" href="{%url 'stats'%}">Stats</a></li>
         </ul>
       </nav>
-      <div id = form>
-          <form action = "submit" method = "POST">
-              {% csrf_token %}
-              <table>
-              {{ form.as_table }}
-            </table>
-              <input type="submit" value = "save">
-          </form>
-      </div>
 </body>
 </html>
