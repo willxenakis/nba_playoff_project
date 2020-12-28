@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import playoffGamePredictEast
 from .forms import playoffGamePredictWest
+from backend import getStats
 
 # Create your views here.
 
@@ -12,7 +13,7 @@ def predictions(request):
 def stats(request):
     response = list(request.POST.values()) [1:]
     print(response)
-    return render(request, "stats.html")
+    return render(request, "stats.html", {'statsDataframeHTML': getStats.getStats()})
 
 def defaultStats(request):
     return render(request, "stats.html")

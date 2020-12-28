@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
     <title>Predictions</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="top-nav">
-        <ul>
-          <li>
-            <a href="{%url 'predictions'%}">
-              <img
-                id="logo"
-                src="{% static 'images/logo.png' %}"
-                alt="My image"
-                style="width: 50px; height: 50px"
-              />
-            </a>
-          </li>
-          <li><a href="{%url 'predictions'%}">Predictions</a></li>
-          <li><a id="currentLink" href="{%url 'stats'%}">Stats</a></li>
-        </ul>
-      </nav>
-</body>
+      <ul>
+        <li>
+          <a href="{%url 'predictions'%}">
+            <img
+              id="logo"
+              src="{% static 'images/logo.png' %}"
+              alt="My image"
+              style="width: 50px; height: 50px"
+            />
+          </a>
+        </li>
+        <li><a href="{%url 'predictions'%}">Predictions</a></li>
+        <li><a id="currentLink" href="{%url 'stats'%}">Stats</a></li>
+      </ul>
+    </nav>
+    {{ statsDataframeHTML |safe}}
+  </body>
 </html>
