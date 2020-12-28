@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from .forms import playoffGamePredict
+from .forms import playoffGamePredictEast
+from .forms import playoffGamePredictWest
 
 # Create your views here.
 
 def predictions(request):
-    form = playoffGamePredict()
-    return render(request, "predictions.html", {'form': form})
+    formEast = playoffGamePredictEast()
+    formWest = playoffGamePredictWest()
+    return render(request, "predictions.html", {'formEast': formEast, 'formWest': formWest})
 
 def stats(request):
     response = list(request.POST.values()) [1:]
