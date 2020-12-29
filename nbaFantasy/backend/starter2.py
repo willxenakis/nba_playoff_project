@@ -118,7 +118,7 @@ consoleIn = 'name' #input()
 
 sortedByInputColumn = df.sort_values(by=[consoleIn], ascending = False)
 
-print(sortedByInputColumn)
+print(df.columns)
 
 predictedGamesWestern = {
     "DAL": 7,
@@ -159,7 +159,7 @@ predictedGamesEastern = {
 # df.loc[df['team']=="BOS", 'points'] = df.loc[df['team']=="BOS", 'points']*10
 
 statList = list(df.columns)
-popList = [0, 1, 2, 3, 4, 5, 9, 12, 15, 16, 19]
+popList = [0, 1, 2, 3, 4, 5, 6, 9, 12, 15, 16, 19]
 for i in range(len(popList)):
     popList[i] = popList[i] - i
 
@@ -173,4 +173,6 @@ for team in predictedGamesWestern:
         df.loc[df['team']==team, i] = df.loc[df['team']==team, i]*predictedGamesWestern[team]
 
 print(df.loc[df['team']=="NOP"])
+# print(df.loc[df['team']=="LAL"])
+
 
