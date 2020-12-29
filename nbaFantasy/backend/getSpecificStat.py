@@ -3,7 +3,7 @@ import lxml.html as lh
 import pandas as pd
 import numpy
 
-def getStats():
+def getSpecificStats(statName):
     url2 = "https://www.basketball-reference.com/leagues/NBA_2020_per_game.html"
     #Create a handle, page, to handle the contents of the website
     page = requests.get(url2)
@@ -16,6 +16,8 @@ def getStats():
 
     #Parse data that are stored between <tr>..</tr> of HTML
     tr_elements = doc.xpath('//tr')
+
+    print(len(tr_elements))
 
     # All per game stats
     # These columns go with the table at this link: https://www.basketball-reference.com/leagues/NBA_2020_per_game.html
@@ -108,7 +110,17 @@ def getStats():
 
     df = pd.DataFrame(data=d)
 
-    croppedTotalData = df[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', 'points',
-    'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']]
+    if(statName == "allStats"):
+        croppedTotalData = df[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', 'points',
+        'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']]
 
-    return croppedTotalData.to_html()
+        return croppedTotalData.to_html()
+    else:
+        sortedBySpecificStat = df.sort_values(by=[statName], ascending = False).head(25)
+
+        croppedSortedBySpecificStat = sortedBySpecificStat[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', statName]]
+
+        # return sortedBySpecificStat.to_html()
+        return croppedSortedBySpecificStat.to_html()
+
+    

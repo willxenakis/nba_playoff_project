@@ -24,6 +24,16 @@
         <li><a id="currentLink" href="{%url 'stats'%}">Stats</a></li>
       </ul>
     </nav>
-    {{ statsDataframeHTML |safe}}
+    <div id="mainBody">
+      <form action="specificStats" method="POST">
+        {% csrf_token %}
+        <table style="display: inline">
+          {{ whichStat.as_table }}
+        </table>
+        <input style="display: inline" type="submit" value="Submit" />
+      </form>
+
+      {{ statsDataframeHTML |safe}}
+    </div>
   </body>
 </html>

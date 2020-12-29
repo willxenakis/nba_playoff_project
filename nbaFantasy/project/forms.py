@@ -21,3 +21,26 @@ class playoffGamePredictWest(forms.Form):
     team6 = forms.CharField(label=teams[13], max_length=3)
     team7 = forms.CharField(label=teams[14], max_length=3)
     team8 = forms.CharField(label=teams[15], max_length=3)
+
+STATS = [
+    ('allStats', 'All Stats'),
+    ('points', 'Points'),
+    ('freeThrowsMade', 'Free Throws'),
+    ('threePointsMade', '3 Pointers'),
+    ('totalRebounds', 'Rebounds'),
+    ('blocks', 'Blocks'),
+    ('assists', 'Assists'),
+    ('fouls', 'Fouls')
+]
+
+class whichStat(forms.Form):
+    def __init__(self, currentField=None):
+        super().__init__()
+        #extend __init__
+        self.currentField = currentField
+        if(currentField==None):
+            self.fields['whichStat'] =forms.CharField(label='Which Stat do you Want to see the Top 25 Players for?', widget=forms.Select(choices=STATS))
+        else:
+            self.fields['whichStat'] =forms.CharField(label='Which Stat do you Want to see the Top 25 Players for?', widget=forms.Select(choices=STATS), initial=currentField)
+        
+    whichStat = forms.CharField()

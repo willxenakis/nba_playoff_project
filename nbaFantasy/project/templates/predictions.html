@@ -26,19 +26,21 @@
         <li><a href="{%url 'stats'%}">Stats</a></li>
       </ul>
     </nav>
-    <div id="form">
-      <form action="submit" method="POST">
-        {% csrf_token %}
-        <h1>Eastern Conference Teams</h1>
-        <table class="eastPredictions">
-          {{ formEast.as_table }}
-        </table>
-        <h1>Western Conference Teams</h1>
-        <table class="westPredictions">
-          {{ formWest.as_table }}
-        </table>
-        <input type="submit" value="Save" />
-      </form>
+    <div id="mainBody">
+      <div id="form">
+        <form action="submit" method="POST">
+          {% csrf_token %}
+          <h1>Eastern Conference Teams</h1>
+          <table class="eastPredictions">
+            {{ formEast.as_table }}
+          </table>
+          <h1>Western Conference Teams</h1>
+          <table class="westPredictions">
+            {{ formWest.as_table }}
+          </table>
+          <input type="submit" value="Save" />
+        </form>
+      </div>
     </div>
   </body>
 </html>
