@@ -39,8 +39,8 @@ class whichStat(forms.Form):
         #extend __init__
         self.currentField = currentField
         if(currentField==None):
-            self.fields['whichStat'] =forms.CharField(label='Which Stat do you Want to see the Top 25 Players for?', widget=forms.Select(choices=STATS))
+            self.fields['whichStat'] =forms.CharField(label='Which Stat do you Want to see the Top 50 Players for?', widget=forms.Select(choices=STATS))
         else:
-            self.fields['whichStat'] =forms.CharField(label='Which Stat do you Want to see the Top 25 Players for?', widget=forms.Select(choices=STATS), initial=currentField)
+            self.fields['whichStat'] =forms.CharField(label='Which Stat do you Want to see the Top 50 Players for?', widget=forms.Select(choices=STATS), initial=currentField)
         
     whichStat = forms.CharField()

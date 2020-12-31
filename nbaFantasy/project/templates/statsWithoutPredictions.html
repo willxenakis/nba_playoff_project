@@ -21,24 +21,14 @@
           </a>
         </li>
         <li><a href="{%url 'predictions'%}">Predictions</a></li>
-        <li><a id="currentLink" href="{%url 'stats'%}">Predicted Stats</a></li>
+        <li><a href="{%url 'stats'%}">Predicted Stats</a></li>
         <li>
-          <a href="{%url 'statsWithoutPredictions' %}"
+          <a id="currentLink" href="{%url 'statsWithoutPredictions' %}"
             >Stats without Predictions</a
           >
         </li>
       </ul>
     </nav>
-    <div id="mainBody">
-      <form action="specificStats" method="POST">
-        {% csrf_token %}
-        <table style="display: inline">
-          {{ whichStat.as_table }}
-        </table>
-        <input style="display: inline" type="submit" value="Submit" />
-      </form>
-
-      {{ statsDataframeHTML |safe}}
-    </div>
+    <div id="mainBody">{{ statsDataframeHTML |safe}}</div>
   </body>
 </html>

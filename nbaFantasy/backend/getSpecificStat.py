@@ -4,9 +4,9 @@ import pandas as pd
 import numpy
 
 def getSpecificStats(statName, allTeams):
-    url2 = "https://www.basketball-reference.com/leagues/NBA_2020_per_game.html"
+    url = "https://www.basketball-reference.com/leagues/NBA_2020_per_game.html"
     #Create a handle, page, to handle the contents of the website
-    page = requests.get(url2)
+    page = requests.get(url)
 
     #Store the contents of the website under doc
     doc = lh.fromstring(page.content)
@@ -119,8 +119,6 @@ def getSpecificStats(statName, allTeams):
         
         [statList.pop(i) for i in popList]
         
-        print(statList)
-
         for team in allTeams:
             for i in statList:
                 df.loc[df['team']==team, i] = df.loc[df['team']==team, i]*allTeams[team]
@@ -131,13 +129,22 @@ def getSpecificStats(statName, allTeams):
 
         return croppedTotalData.to_html()
     else:
+        df['forcasted Games'] = 1
+        fcstStat = 'forcasted '+statName
+        df[fcstStat] = df[statName]
 
         for team in allTeams:
-            df.loc[df['team']==team, statName] = df.loc[df['team']==team, statName]*allTeams[team]
+            df.loc[df['team']==team, 'forcasted Games'] = df.loc[df['team']==team, 'forcasted Games']*allTeams[team]
+            df.loc[df['team']==team, fcstStat] = df.loc[df['team']==team, fcstStat]*allTeams[team]
 
-        sortedBySpecificStat = df.sort_values(by=[statName], ascending = False).head(25)
+        playoffTeamNames = allTeams.keys()
 
-        croppedSortedBySpecificStat = sortedBySpecificStat[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', statName]]
+        onlyPlayoffTeams = df[df['team'].isin(playoffTeamNames)] 
 
-        # return sortedBySpecificStat.to_html()
+        sortedBySpecificStat = onlyPlayoffTeams.sort_values(by=[fcstStat], ascending = False).head(50)
+
+        croppedSortedBySpecificStat = sortedBySpecificStat[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', statName,'forcasted Games', fcstStat]]
+
+        croppedSortedBySpecificStat = croppedSortedBySpecificStat.reset_index(drop=True)
+
         return croppedSortedBySpecificStat.to_html()

@@ -24,6 +24,11 @@ def stats(request):
     stats = whichStat() #initialize the drop down menu 
     return render(request, "stats.html", {'statsDataframeHTML': getSpecificStat.getSpecificStats('allStats', allTeams), 'whichStat': stats})
 
+def statsWithoutPredictions(request):
+    teams = ['MIL', 'TOR', 'BOS', 'IND', 'MIA', 'PHI', 'BKN', 'ORL', 'LAL', 'LAC', 'DEN', 'HOU', 'OKC', 'UTA', 'DAL', 'POR']
+    return render(request, "statsWithoutPredictions.html", {'statsDataframeHTML': getStats.getStats(teams)})
+
+
 #called when submit button clicked on drop down
 def specificStats(request):
     allTeams = request.session.get('predictions', None) #get the dictionary that matches each team to their predicted games from request.session
