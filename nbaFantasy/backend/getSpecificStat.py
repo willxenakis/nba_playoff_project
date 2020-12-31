@@ -146,5 +146,6 @@ def getSpecificStats(statName, allTeams):
         croppedSortedBySpecificStat = sortedBySpecificStat[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', statName,'forcasted Games', fcstStat]]
 
         croppedSortedBySpecificStat = croppedSortedBySpecificStat.reset_index(drop=True)
+        croppedSortedBySpecificStat.index += 1
 
         return croppedSortedBySpecificStat.to_html()
