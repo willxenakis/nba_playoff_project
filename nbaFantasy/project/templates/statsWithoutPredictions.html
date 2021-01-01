@@ -29,6 +29,17 @@
         </li>
       </ul>
     </nav>
-    <div id="mainBody">{{ statsDataframeHTML |safe}}</div>
+    <div id="mainBody">
+      <form action="specificUnpredictedStats" method="POST">
+        {% csrf_token %}
+        <table style="display: inline">
+          {{ whichStat.as_table }}
+        </table>
+        <input style="display: inline" type="submit" value="Submit" />
+      </form>
+      
+      {{ statsDataframeHTML |safe}}
+
+    </div>
   </body>
 </html>

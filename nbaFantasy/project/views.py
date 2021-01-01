@@ -26,8 +26,8 @@ def stats(request):
     return render(request, "stats.html", {'statsDataframeHTML': getSpecificStat.getSpecificStats('allStats', allTeams), 'whichStat': stats})
 
 def statsWithoutPredictions(request):
-    teams = ['MIL', 'TOR', 'BOS', 'IND', 'MIA', 'PHI', 'BKN', 'ORL', 'LAL', 'LAC', 'DEN', 'HOU', 'OKC', 'UTA', 'DAL', 'POR']
-    return render(request, "statsWithoutPredictions.html", {'statsDataframeHTML': getStats.getStats(teams)})
+    stats = whichStat()
+    return render(request, "statsWithoutPredictions.html", {'statsDataframeHTML': getStats.getStats(teams, "points"), 'whichStat': stats},)
 
 
 #called when submit button clicked on drop down
@@ -50,3 +50,8 @@ def defaultStats(request):
     defaultPredictions = dict(zip(teams, predictedGames))
     stats = whichStat()
     return render(request, "stats.html", {'statsDataframeHTML': getSpecificStat.getSpecificStats('allStats', defaultPredictions), 'whichStat': stats})
+
+def specificUnStats(request):
+    response = list(request.POST.values()) [1:][0]
+    stats = whichStat()
+    return render(request, "statsWithoutPredictions.html", {'statsDataframeHTML': getStats.getStats(teams, response), 'whichStat': stats},)

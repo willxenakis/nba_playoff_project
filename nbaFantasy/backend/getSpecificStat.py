@@ -123,18 +123,24 @@ def getSpecificStats(statName, allTeams):
             for i in statList:
                 df.loc[df['team']==team, i] = df.loc[df['team']==team, i]*allTeams[team]
 
+        teams = list(allTeams.keys())
         
-        croppedTotalData = df[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', 'points',
-        'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']]
+        onlyPlayoffTeams = df[df['team'].isin(teams)]
 
+        croppedTotalData = onlyPlayoffTeams[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', 'points',
+        'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']]
+        
+        
+
+        croppedTotalData = croppedTotalData.sort_values(by=["team", "points"], ascending = [True, False]).reset_index(drop=True)
         return croppedTotalData.to_html()
     else:
-        df['forcasted Games'] = 1
+        df['forecasted Games'] = 1
         fcstStat = 'forcasted '+statName
         df[fcstStat] = df[statName]
 
         for team in allTeams:
-            df.loc[df['team']==team, 'forcasted Games'] = df.loc[df['team']==team, 'forcasted Games']*allTeams[team]
+            df.loc[df['team']==team, 'forecasted Games'] = df.loc[df['team']==team, 'forecasted Games']*allTeams[team]
             df.loc[df['team']==team, fcstStat] = df.loc[df['team']==team, fcstStat]*allTeams[team]
 
         playoffTeamNames = allTeams.keys()
@@ -143,7 +149,7 @@ def getSpecificStats(statName, allTeams):
 
         sortedBySpecificStat = onlyPlayoffTeams.sort_values(by=[fcstStat], ascending = False).head(50)
 
-        croppedSortedBySpecificStat = sortedBySpecificStat[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', statName,'forcasted Games', fcstStat]]
+        croppedSortedBySpecificStat = sortedBySpecificStat[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', statName,'forecasted Games', fcstStat]]
 
         croppedSortedBySpecificStat = croppedSortedBySpecificStat.reset_index(drop=True)
         croppedSortedBySpecificStat.index += 1

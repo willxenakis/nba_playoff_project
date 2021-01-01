@@ -3,7 +3,7 @@ import lxml.html as lh
 import pandas as pd
 import numpy
 
-def getStats(teams):
+def getStats(teams, statName):
     url = "https://www.basketball-reference.com/leagues/NBA_2020_per_game.html"
     #Create a handle, page, to handle the contents of the website
     page = requests.get(url)
@@ -115,6 +115,6 @@ def getStats(teams):
     croppedTotalData = onlyPlayoffTeams[['name', 'position', 'age', 'team', 'gamesPlayed', 'gamesStarted', 'minutesPlayed', 'points',
     'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']]
 
-    croppedTotalData = croppedTotalData.sort_values(by=["team", "points"], ascending = [True, False]).reset_index(drop=True)
+    croppedTotalData = croppedTotalData.sort_values(by=["team", statName], ascending = [True, False]).reset_index(drop=True)
 
     return croppedTotalData.to_html()
