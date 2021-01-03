@@ -53,5 +53,5 @@ def defaultStats(request):
 
 def specificUnStats(request):
     response = list(request.POST.values()) [1:][0]
-    stats = whichStat()
+    stats = whichStat(response)
     return render(request, "statsWithoutPredictions.html", {'statsDataframeHTML': getStats.getStats(teams, response), 'whichStat': stats},)
