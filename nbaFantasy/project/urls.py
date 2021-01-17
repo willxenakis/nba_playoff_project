@@ -10,4 +10,5 @@ urlpatterns = [
     path('specificStats', views.specificStats, name='specificStats'),
     path('statsWithoutPredictions', views.statsWithoutPredictions, name='statsWithoutPredictions'),
     path('specificUnpredictedStats', views.specificUnStats, name='specificUnpredictedStats'),
+    path('csv/', views.download, name='csv'),
 ]

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import playoffGamePredictEast, playoffGamePredictWest, whichStat
 from backend import getStats, getSpecificStat
+import os
 
 # Create your views here.
 
@@ -55,3 +56,12 @@ def specificUnStats(request):
     response = list(request.POST.values()) [1:][0]
     stats = whichStat(response)
     return render(request, "statsWithoutPredictions.html", {'statsDataframeHTML': getStats.getStats(teams, response), 'whichStat': stats},)
+
+def download(request):
+    file_path = 'tableData.csv'
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404

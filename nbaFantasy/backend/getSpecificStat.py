@@ -133,6 +133,10 @@ def getSpecificStats(statName, allTeams):
         
 
         croppedTotalData = croppedTotalData.sort_values(by=["team", "points"], ascending = [True, False]).reset_index(drop=True)
+
+        croppedTotalData[['points', 'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']] = croppedTotalData[['points', 'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']].astype(int)
+
+        croppedTotalData.to_csv('tableData.csv')
         return croppedTotalData.to_html()
     else:
         df['forecasted Games'] = 1
@@ -153,5 +157,8 @@ def getSpecificStats(statName, allTeams):
 
         croppedSortedBySpecificStat = croppedSortedBySpecificStat.reset_index(drop=True)
         croppedSortedBySpecificStat.index += 1
+        
+        croppedSortedBySpecificStat[fcstStat] = croppedSortedBySpecificStat[fcstStat].astype(int)
 
+        croppedSortedBySpecificStat.to_csv('tableData.csv')
         return croppedSortedBySpecificStat.to_html()

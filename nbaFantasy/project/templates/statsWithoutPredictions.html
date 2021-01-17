@@ -37,7 +37,9 @@
         </table>
         <input style="display: inline" type="submit" value="Submit" />
       </form>
-
+      <form action="{% url 'csv' %}">
+        <input type="submit" value="Download csv" />
+      </form>
       {{ statsDataframeHTML |safe}}
     </div>
   </body>

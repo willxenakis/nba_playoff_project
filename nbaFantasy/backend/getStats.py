@@ -116,5 +116,5 @@ def getStats(teams, statName):
     'freeThrowsMade', 'threePointsMade', 'totalRebounds', 'blocks', 'assists', 'fouls']]
 
     croppedTotalData = croppedTotalData.sort_values(by=["team", statName], ascending = [True, False]).reset_index(drop=True)
-
+    croppedTotalData.to_csv('tableData.csv')
     return croppedTotalData.to_html()
